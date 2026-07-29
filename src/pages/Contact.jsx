@@ -20,32 +20,66 @@ export default function Contact() {
     }
   }
 
+  const fieldClass =
+    'w-full bg-transparent border border-[#3A3A3E] focus:border-[#D6293A] outline-none px-4 py-3 text-[#F3F1EC] placeholder:text-[#5C5A56] transition-colors'
+  const labelClass = 'font-mono text-[10px] uppercase tracking-[0.2em] text-[#8A8A8E] mb-1.5 block'
+
   return (
-    <section className="max-w-xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold mb-6">Get in Touch</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="name" value={form.name} onChange={handleChange} required
-          placeholder="Your name"
-          className="w-full border rounded-lg px-4 py-2"
-        />
-        <input
-          name="email" type="email" value={form.email} onChange={handleChange} required
-          placeholder="Your email"
-          className="w-full border rounded-lg px-4 py-2"
-        />
-        <textarea
-          name="message" value={form.message} onChange={handleChange} required
-          placeholder="Tell us about your project"
-          rows={5}
-          className="w-full border rounded-lg px-4 py-2"
-        />
-        <button className="bg-black text-white px-6 py-2 rounded-lg">
-          Send
-        </button>
-        {status === 'sent' && <p className="text-green-600">Message sent!</p>}
-        {status === 'error' && <p className="text-red-600">Something went wrong.</p>}
-      </form>
+    <section className="bg-[#0C0C0D]">
+      <div className="max-w-xl mx-auto px-4 py-24">
+        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#D6293A]">
+          Slate — Take 01
+        </span>
+        <h1 className="font-display text-5xl md:text-6xl text-[#F3F1EC] mt-3 mb-10">
+          GET IN TOUCH
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className={labelClass}>Name</label>
+            <input
+              name="name" value={form.name} onChange={handleChange} required
+              placeholder="Your name"
+              className={fieldClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Email</label>
+            <input
+              name="email" type="email" value={form.email} onChange={handleChange} required
+              placeholder="Your email"
+              className={fieldClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Message</label>
+            <textarea
+              name="message" value={form.message} onChange={handleChange} required
+              placeholder="Tell us about your project"
+              rows={5}
+              className={fieldClass}
+            />
+          </div>
+
+          <button
+            disabled={status === 'sending'}
+            className="bg-[#D6293A] text-[#F3F1EC] px-8 py-3 font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#B71F2E] transition-colors disabled:opacity-50"
+          >
+            {status === 'sending' ? 'Sending…' : 'Send'}
+          </button>
+
+          {status === 'sent' && (
+            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#3FAE6B]">
+              Message sent — we'll be in touch.
+            </p>
+          )}
+          {status === 'error' && (
+            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#D6293A]">
+              Something went wrong. Please try again.
+            </p>
+          )}
+        </form>
+      </div>
     </section>
   )
 }

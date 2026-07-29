@@ -13,15 +13,22 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   const linkClass = ({ isActive }) =>
-    `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-      isActive ? 'text-indigo-600' : 'text-gray-700 hover:text-indigo-600'
+    `relative px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors ${
+      isActive ? 'text-[#F3F1EC]' : 'text-[#8A8A8E] hover:text-[#F3F1EC]'
+    } after:content-[''] after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-[2px] after:bg-[#D6293A] after:transition-transform after:origin-left ${
+      isActive ? 'after:scale-x-100' : 'after:scale-x-0'
     }`
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-[#0C0C0D]/95 backdrop-blur border-b border-white/10">
       <nav className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <NavLink to="/" className="font-bold text-lg tracking-tight">
-          Third Perspective <span className="text-indigo-600">Media</span>
+        <NavLink to="/" className="flex items-center gap-2.5 group">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="tpm-rec-dot absolute inline-flex h-full w-full rounded-full bg-[#D6293A]" />
+          </span>
+          <span className="font-display text-2xl leading-none text-[#F3F1EC] tracking-wide">
+            THIRD PERSPECTIVE <span className="text-[#D6293A]">MEDIA</span>
+          </span>
         </NavLink>
 
         <div className="hidden md:flex items-center gap-1">
@@ -36,15 +43,16 @@ export default function Navbar() {
           className="md:hidden p-2"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
-          <span className="block w-6 h-0.5 bg-gray-800 mb-1.5" />
-          <span className="block w-6 h-0.5 bg-gray-800 mb-1.5" />
-          <span className="block w-6 h-0.5 bg-gray-800" />
+          <span className="block w-6 h-0.5 bg-[#F3F1EC] mb-1.5" />
+          <span className="block w-6 h-0.5 bg-[#F3F1EC] mb-1.5" />
+          <span className="block w-6 h-0.5 bg-[#F3F1EC]" />
         </button>
       </nav>
 
       {open && (
-        <div className="md:hidden px-4 pb-4 flex flex-col gap-1 bg-white border-t border-gray-100">
+        <div className="md:hidden px-4 pb-4 flex flex-col gap-1 bg-[#0C0C0D] border-t border-white/10">
           {links.map((l) => (
             <NavLink
               key={l.to}

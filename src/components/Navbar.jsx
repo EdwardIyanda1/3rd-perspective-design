@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 
 const links = [
@@ -11,48 +11,53 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const linkClass = ({ isActive }) =>
-    `text-xs uppercase tracking-[0.25em] transition-colors ${
+    `text-xs uppercase tracking-[0.25em] transition-colors duration-300 ${
       isActive ? 'text-gold font-medium' : 'text-charcoal-light hover:text-gold'
     }`
 
   return (
-    <header className="sticky top-0 z-50 border-b border-sand/60 bg-canvas/95 backdrop-blur-md">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'border-b border-sand/60 bg-canvas/80 backdrop-blur-md shadow-xs py-0'
+          : 'border-b border-transparent bg-transparent py-2'
+      }`}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-12">
-        {/* Brand Logo with Monogram */}
+        {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3.5" onClick={() => setOpen(false)}>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-surface shadow-xs">
-            <svg
-              viewBox="0 0 40 40"
-              className="h-6 w-6 text-gold"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <circle cx="20" cy="20" r="18" strokeDasharray="2 2" />
-              <text
-                x="50%"
-                y="55%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                className="font-serif text-[11px] font-semibold tracking-wider fill-gold stroke-none"
-              >
-                3P
-              </text>
-            </svg>
-          </div>
+          <img
+            src="/logo.png"
+            alt="Third Perspective Media Logo"
+            className="h-10 w-auto max-w-[48px] object-contain transition-transform duration-300 hover:scale-105"
+          />
           <div className="flex flex-col">
             <span className="font-serif text-xl tracking-[0.18em] text-charcoal sm:text-2xl">
               THIRD PERSPECTIVE
             </span>
             <span className="text-[9px] uppercase tracking-[0.4em] text-gold">
-              Studios &middot; Lagos / Ibadan
+              Media &middot; Lagos / Ibadan
             </span>
           </div>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-9 md:flex">
           {links.map((l) => (
             <NavLink key={l.to} to={l.to} className={linkClass}>
@@ -61,31 +66,48 @@ export default function Navbar() {
           ))}
           <Link
             to="/contact"
-            className="border border-gold bg-transparent px-6 py-2.5 text-[11px] uppercase tracking-[0.2em] text-charcoal transition-all hover:bg-gold hover:text-white"
+            className="border border-gold bg-surface/30 backdrop-blur-xs px-6 py-2.5 text-[11px] uppercase tracking-[0.2em] text-charcoal transition-all duration-300 hover:bg-gold hover:text-white hover:border-gold"
           >
             Book Session
           </Link>
         </nav>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button */}
         <button
           className="p-2 md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle navigation menu"
         >
           <div className="space-y-1.5">
-            <span className={`block h-0.5 w-6 bg-charcoal transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
-            <span className={`block h-0.5 w-6 bg-charcoal transition-opacity ${open ? 'opacity-0' : ''}`} />
-            <span className={`block h-0.5 w-6 bg-charcoal transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+            <span
+              className={`block h-0.5 w-6 bg-charcoal transition-transform duration-300 ${
+                open ? 'translate-y-2 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-charcoal transition-opacity duration-300 ${
+                open ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-charcoal transition-transform duration-300 ${
+                open ? '-translate-y-2 -rotate-45' : ''
+              }`}
+            />
           </div>
         </button>
       </div>
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="flex flex-col space-y-4 border-b border-sand bg-canvas px-8 py-6 md:hidden">
+        <div className="flex flex-col space-y-4 border-b border-sand bg-canvas/95 backdrop-blur-md px-8 py-6 md:hidden">
           {links.map((l) => (
-            <NavLink key={l.to} to={l.to} className={linkClass} onClick={() => setOpen(false)}>
+            <NavLink
+              key={l.to}
+              to={l.to}
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
               {l.label}
             </NavLink>
           ))}

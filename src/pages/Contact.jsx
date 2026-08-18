@@ -1,8 +1,28 @@
 import { useState } from 'react'
 import client from '../api/client'
 
+const sessionTypes = [
+  'Videography & Motion Coverage',
+  'Photography & Event Stills',
+  'Graphic Design & Brand Identity',
+  'Full Media Campaign / Partnership',
+]
+
+const contactDetails = [
+  { label: 'Email Inquiries', value: 'hello@thirdperspectivemedia.com' },
+  { label: 'Operating Hubs', value: 'Ibadan & Lagos, Nigeria' },
+  { label: 'Consultations', value: 'By Scheduled Appointment' },
+]
+
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    sessionType: 'Videography & Motion Coverage',
+    date: '',
+    message: '',
+  })
   const [status, setStatus] = useState(null)
 
   const handleChange = (e) =>
@@ -14,72 +34,194 @@ export default function Contact() {
     try {
       await client.post('/inquiries/', form)
       setStatus('sent')
-      setForm({ name: '', email: '', message: '' })
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        sessionType: 'Videography & Motion Coverage',
+        date: '',
+        message: '',
+      })
     } catch {
       setStatus('error')
     }
   }
 
-  const fieldClass =
-    'w-full bg-transparent border border-[#3A3A3E] focus:border-[#D6293A] outline-none px-4 py-3 text-[#F3F1EC] placeholder:text-[#5C5A56] transition-colors'
-  const labelClass = 'font-mono text-[10px] uppercase tracking-[0.2em] text-[#8A8A8E] mb-1.5 block'
+  const inputClass =
+    'w-full bg-surface border border-sand px-4 py-3.5 text-sm text-charcoal outline-none transition-colors focus:border-gold placeholder:text-charcoal-light/40'
+  const labelClass =
+    'block text-[11px] uppercase tracking-[0.2em] text-charcoal-light font-medium mb-2'
 
   return (
-    <section className="bg-[#0C0C0D]">
-      <div className="max-w-xl mx-auto px-4 py-24">
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#D6293A]">
-          Slate — Take 01
-        </span>
-        <h1 className="font-display text-5xl md:text-6xl text-[#F3F1EC] mt-3 mb-10">
-          GET IN TOUCH
-        </h1>
+    <div className="bg-canvas">
+      {/* Editorial Header Banner */}
+      <section className="relative overflow-hidden bg-charcoal py-20 text-center">
+        <img
+          src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80"
+          alt="Third Perspective Media Inquiry Header"
+          className="absolute inset-0 h-full w-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-charcoal/70" />
+        <div className="relative z-10 mx-auto max-w-2xl px-6">
+          <span className="text-xs uppercase tracking-[0.35em] text-gold">
+            Start A Project
+          </span>
+          <h1 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
+            Inquire & Collaborate
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-sand">
+            Tell us about your brand, upcoming event, or creative visual needs. Our team will get back to you within two business days.
+          </p>
+        </div>
+      </section>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Form & Contact Details Grid */}
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr]">
+          {/* Left Column: Image Card & Contact Details */}
           <div>
-            <label className={labelClass}>Name</label>
-            <input
-              name="name" value={form.name} onChange={handleChange} required
-              placeholder="Your name"
-              className={fieldClass}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Email</label>
-            <input
-              name="email" type="email" value={form.email} onChange={handleChange} required
-              placeholder="Your email"
-              className={fieldClass}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Message</label>
-            <textarea
-              name="message" value={form.message} onChange={handleChange} required
-              placeholder="Tell us about your project"
-              rows={5}
-              className={fieldClass}
-            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-xs bg-sand-light shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+                alt="Third Perspective Media Creative Session"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/20 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <p className="font-serif text-xl italic">
+                  &ldquo;Stories, seen from a third perspective.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 space-y-6 border-t border-sand pt-8">
+              {contactDetails.map((d) => (
+                <div key={d.label}>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-gold">
+                    {d.label}
+                  </p>
+                  <p className="mt-1 font-serif text-lg text-charcoal">{d.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <button
-            disabled={status === 'sending'}
-            className="bg-[#D6293A] text-[#F3F1EC] px-8 py-3 font-mono text-xs uppercase tracking-[0.15em] hover:bg-[#B71F2E] transition-colors disabled:opacity-50"
-          >
-            {status === 'sending' ? 'Sending…' : 'Send'}
-          </button>
-
-          {status === 'sent' && (
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#3FAE6B]">
-              Message sent — we'll be in touch.
+          {/* Right Column: Inquiry Form */}
+          <div className="border border-sand bg-surface p-8 shadow-xs sm:p-12">
+            <h2 className="font-serif text-2xl text-charcoal sm:text-3xl">
+              Project Inquiry Form
+            </h2>
+            <p className="mt-2 text-xs text-charcoal-light">
+              Fill in your specifications below to confirm agency availability.
             </p>
-          )}
-          {status === 'error' && (
-            <p className="font-mono text-xs uppercase tracking-[0.15em] text-[#D6293A]">
-              Something went wrong. Please try again.
-            </p>
-          )}
-        </form>
-      </div>
-    </section>
+
+            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+              <div>
+                <label className={labelClass}>Select Service Focus</label>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {sessionTypes.map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setForm({ ...form, sessionType: type })}
+                      className={`border p-3 text-left text-xs transition-colors ${
+                        form.sessionType === type
+                          ? 'border-gold bg-gold/10 font-medium text-charcoal'
+                          : 'border-sand text-charcoal-light hover:border-gold'
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass}>Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="e.g. Popoola Mabel"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="yourname@domain.com"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label className={labelClass}>Phone / WhatsApp</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+234..."
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Target Date / Timeline</label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={form.date}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className={labelClass}>Project Vision & Details</label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  placeholder="Share details about your upcoming campaign, event schedule, interview requirements, or design specifications..."
+                  className={inputClass}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="w-full bg-charcoal py-4 text-xs uppercase tracking-[0.25em] text-white transition-colors hover:bg-gold disabled:opacity-50"
+              >
+                {status === 'sending' ? 'Transmitting...' : 'Send Inquiry'}
+              </button>
+
+              {status === 'sent' && (
+                <div className="border border-gold bg-gold/10 p-4 text-center text-xs tracking-wide text-charcoal">
+                  Thank you. Your inquiry has been received; we will be in touch shortly.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="border border-red-500/30 bg-red-50 p-4 text-center text-xs tracking-wide text-red-700">
+                  Something went wrong while submitting. Please try again or reach out directly at hello@thirdperspectivemedia.com.
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }

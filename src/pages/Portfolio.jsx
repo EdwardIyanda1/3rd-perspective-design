@@ -1,14 +1,38 @@
 import { useState } from 'react'
 
-const categories = ['All', 'Portraits & Branding', 'Weddings & Stories', 'Creative Direction']
+const categories = ['All', 'Videography', 'Photography', 'Graphic Design', 'Keynote & Coverage']
 
 const projects = [
-  { title: 'The Executive Presence', category: 'Portraits & Branding' },
-  { title: 'Golden Hour Matrimony', category: 'Weddings & Stories' },
-  { title: 'Modern Heritage Editorial', category: 'Creative Direction' },
-  { title: 'Essence of Lagos', category: 'Portraits & Branding' },
-  { title: 'Ceremonial Vows', category: 'Weddings & Stories' },
-  { title: 'Contemporary Form', category: 'Creative Direction' },
+  {
+    title: 'TEDxLCU Keynote & Speaker Stills',
+    category: 'Keynote & Coverage',
+    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Executive Presence & Portraiture',
+    category: 'Photography',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Fashion Week Motion Reel',
+    category: 'Videography',
+    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Modern Brand Identity & Campaign',
+    category: 'Graphic Design',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'TEDxLCU Backstage & Speaker Interviews',
+    category: 'Videography',
+    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    title: 'Editorial Studio Stills',
+    category: 'Photography',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
+  },
 ]
 
 export default function Portfolio() {
@@ -24,7 +48,7 @@ export default function Portfolio() {
             The Gallery
           </h1>
           <p className="mt-4 text-sm text-charcoal-light">
-            A visual archive of emotion, personal legacy, and distinct elegance.
+            A visual archive of dynamic event coverage, brand design, and editorial motion.
           </p>
         </div>
 
@@ -49,13 +73,16 @@ export default function Portfolio() {
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((item) => (
             <div key={item.title} className="group cursor-pointer">
-              <div className="relative aspect-[4/5] overflow-hidden bg-sand-light">
-                <div className="flex h-full w-full items-center justify-center bg-sand-light text-xs uppercase tracking-[0.25em] text-charcoal-light/40 transition-transform duration-700 group-hover:scale-105">
-                  Editorial Plate
-                </div>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xs bg-sand-light shadow-xs">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
               <div className="mt-4 text-center">
-                <h3 className="font-serif text-xl text-charcoal group-hover:text-gold transition-colors">
+                <h3 className="font-serif text-xl text-charcoal transition-colors group-hover:text-gold">
                   {item.title}
                 </h3>
                 <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-charcoal-light/60">

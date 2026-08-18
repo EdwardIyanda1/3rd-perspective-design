@@ -2,39 +2,39 @@ import { Link } from 'react-router-dom'
 
 const experiences = [
   {
-    category: 'The Signature Session',
-    title: 'Executive & Personal Branding Portraiture',
-    desc: 'An empowerment-first experience designed to build confidence and establish an undeniable executive presence for founders, leaders, and creatives.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
-    details: [
-      'Pre-session styling & mood board consultation',
-      'Professional wardrobe and posing direction',
-      'In-studio or bespoke architectural location',
-      'Master retouched, high-resolution editorial plates',
-    ],
-  },
-  {
-    category: 'The Documentary Journey',
-    title: 'Luxury Weddings & Milestones',
-    desc: 'Artistic documentation that captures genuine emotion, atmosphere, and unscripted intimacy with cinematic elegance.',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
-    details: [
-      'Multi-day event coverage & preparation',
-      'Hybrid digital & fine-art film aesthetics',
-      'Curated heirloom fine-art album design',
-      'Cinematic highlight reels and full-length documentary',
-    ],
-  },
-  {
-    category: 'Brand Direction',
-    title: 'Commercial Campaigns & Visual Identity',
-    desc: 'Comprehensive visual storytelling for brands, campaigns, and product launches seeking refined creative direction and high-impact assets.',
+    category: 'Cinematic & Mobile Motion',
+    title: 'Videography & Event Documentaries',
+    desc: 'From high-impact speaker keynotes and interviews to commercial brand reels, we document motion with dynamic framing and refined color grading.',
     image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
     details: [
-      'Brand narrative and creative roadmap',
-      'Editorial lookbooks and digital product stills',
-      'Social-first vertical short films & motion reels',
-      'Full commercial usage rights & multi-format delivery',
+      'Conference, symposium & TEDx-style event documentation',
+      'Speaker spotlight interviews & narrative video snippets',
+      'High-energy short-form vertical reels (TikTok & Instagram)',
+      'Cinematic color grading & multi-cam coverage options',
+    ],
+  },
+  {
+    category: 'Stills & Portraiture',
+    title: 'Editorial Photography & Live Stills',
+    desc: 'Empowering portraiture, executive headshots, and authentic photojournalism capturing live energy and genuine emotion.',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
+    details: [
+      'Executive, corporate & personal branding portraits',
+      'Live stage, audience & red carpet event stills',
+      'Mobile & professional studio lighting setups',
+      'Meticulously color-corrected and retouched plates',
+    ],
+  },
+  {
+    category: 'Brand Architecture',
+    title: 'Graphic Design & Visual Identity',
+    desc: 'Strategic visual identities, modern typographic systems, and high-impact digital campaign materials crafted to command attention.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80',
+    details: [
+      'Comprehensive brand identity, logos & brand style guides',
+      'Social media promotional assets & event flyers',
+      'Print collateral, presentation decks & digital assets',
+      'Full commercial usage rights and multi-format delivery',
     ],
   },
 ]
@@ -42,18 +42,18 @@ const experiences = [
 const steps = [
   {
     number: '01',
-    title: 'The Consultation',
-    desc: 'We explore your vision, styling palette, and the story you want your portraits to convey.',
+    title: 'Creative Briefing',
+    desc: 'We define the campaign angle, storyboard requirements, or event timeline to ensure seamless execution.',
   },
   {
     number: '02',
-    title: 'The Session Day',
-    desc: 'Guided posing and tailored lighting that put you at ease, capturing your most confident, natural self.',
+    title: 'On-Set Capture & Direction',
+    desc: 'Our videographers, photographers, and directors capture footage and stills with focused intent.',
   },
   {
     number: '03',
-    title: 'The Reveal & Retouch',
-    desc: 'Hand-selected and meticulously retouched plates delivered in your private digital gallery.',
+    title: 'Post-Production & Delivery',
+    desc: 'Every cut is graded and designed into polished, ready-to-publish assets delivered right on schedule.',
   },
 ]
 
@@ -62,12 +62,12 @@ export default function Services() {
     <div className="bg-canvas">
       {/* Header */}
       <section className="mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:px-12">
-        <span className="text-xs uppercase tracking-[0.35em] text-gold">Offerings</span>
+        <span className="text-xs uppercase tracking-[0.35em] text-gold">Capabilities</span>
         <h1 className="mt-4 font-serif text-4xl text-charcoal sm:text-5xl md:text-6xl">
-          The Studio Experiences
+          Agency Services & Experiences
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-charcoal-light">
-          Each session is curated with intention, providing complete styling guidance, flattering lighting, and an empowering atmosphere.
+          Third Perspective Media delivers end-to-end creative production across video, photography, and digital design.
         </p>
       </section>
 
@@ -104,14 +104,16 @@ export default function Services() {
                     to="/contact"
                     className="inline-block border border-gold px-7 py-3 text-xs uppercase tracking-[0.2em] text-charcoal transition-colors hover:bg-gold hover:text-white"
                   >
-                    Reserve Experience
+                    Inquire About This Service
                   </Link>
                 </div>
               </div>
 
-              <div className={`overflow-hidden rounded-xs bg-sand-light shadow-md ${
-                idx % 2 === 1 ? 'lg:col-start-1' : ''
-              }`}>
+              <div
+                className={`overflow-hidden rounded-xs bg-sand-light shadow-md ${
+                  idx % 2 === 1 ? 'lg:col-start-1' : ''
+                }`}
+              >
                 <div className="aspect-[4/5] w-full overflow-hidden">
                   <img
                     src={exp.image}
@@ -129,9 +131,9 @@ export default function Services() {
       <section className="border-t border-sand bg-canvas-subtle py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="text-center">
-            <span className="text-xs uppercase tracking-[0.35em] text-gold">Step by Step</span>
+            <span className="text-xs uppercase tracking-[0.35em] text-gold">Our Workflow</span>
             <h2 className="mt-2 font-serif text-3xl text-charcoal sm:text-4xl">
-              The Journey With Us
+              How We Execute
             </h2>
           </div>
 
